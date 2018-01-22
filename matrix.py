@@ -29,7 +29,7 @@ class Matrix:
     def getdata(self):
         return self.matrix
 
-    def hassameorder(self, othermatrix=None):
+    def hasthesameorder(self, othermatrix=None):
         if not othermatrix or not isinstance(othermatrix, Matrix):
             return False
         else:
@@ -62,7 +62,7 @@ class Matrix:
         return (rows == cols)
     def applyfunction(self,othermatrix,operation):
         result=[[]]
-        if self.hassameorder(othermatrix):
+        if self.hasthesameorder(othermatrix):
             _function=Matrix._operations[operation]
             if (_function):
                 result=[]
