@@ -92,7 +92,10 @@ class Matrix:
                         row.append(partial)
                     result.append(row)
         return Matrix(result)
-
+    def __add__(self,other):
+              return self.add(other)
+    def __sub__(self, other):
+              return self.minus(other)
     def add(self, othermatrix):
         return self.applyfunction(othermatrix, 'add')
 
@@ -116,3 +119,7 @@ if __name__ == '__main__':
     print(g.getdeterminant())
     m2 = Matrix([[1, 9, 3], [9, 2, -1],[3,-1,5]])
     print(m2.issimetric())
+    m3=Matrix([[1,2,3],[4,5,6]])
+    m4=Matrix([[3,4,5],[6,7,8]])
+    print((m3+m4).getdata())
+    print((m4-m3).getdata())
