@@ -11,7 +11,8 @@ class Matrix:
         self.rows = len(self.matrix)
         self.cols = len(self.matrix[0])
         self._determinants = {1: lambda: self.getdata()[0][0], 2: self.getordertwo}
-
+    def issimetric(self):
+                return self.getdata()==self.revert().getdata()
     def getdeterminant(self):
         return self._determinants[self.getOrder()[0]]()
 
@@ -32,7 +33,7 @@ class Matrix:
         except:
             print(sys.exc_info())
         finally:
-            return result
+            return Matrix(result)
 
     def __eq__(self, other):
         return (isinstance(other, Matrix) and (self.getOrder() == other.getOrder()) and (
@@ -113,3 +114,5 @@ if __name__ == '__main__':
     print(x.getdeterminant())
     g = Matrix([[3, 8], [4, 6]])
     print(g.getdeterminant())
+    m2 = Matrix([[1, 9, 3], [9, 2, -1],[3,-1,5]])
+    print(m2.issimetric())
