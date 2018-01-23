@@ -2,6 +2,14 @@
 # Author: Maximiliano Bordon
 ################################################
 
+def isanumber(number):
+    try:
+        float(repr(number))
+        isnumeric = True
+    except:
+        isnumeric = False
+    return isnumeric
+
 class Matrix:
     import operator
     _operations = {'add': operator.add, 'minus': operator.sub, 'mul': operator.mul}
@@ -122,7 +130,18 @@ class Matrix:
 
     def __sub__(self, other):
         return self.minus(other)
-
+    def mul(self,data):
+               result=[[]]
+               if isanumber(data):
+                       result=[]
+                       for row_index in range(self.rows):
+                           row=[]
+                           for col_index in range(self.cols):
+                               row.append(self.getdata()[row_index][col_index]*data)
+                           result.append(row)
+               return Matrix(result)
+    def __mul__(self,other):
+            return self.mul(other)
     def add(self, othermatrix):
         return self.applyfunction(othermatrix, 'add')
 
@@ -151,4 +170,7 @@ if __name__ == '__main__':
     print((m3 + m4).getdata())
     print((m4 - m3).getdata())
     m1 = Matrix([[1,0,0], [0, 1, 0], [0, 0, 1]])
-    print(m1.isidentitymatrix())
+    m5=Matrix([[1,2,3],[3,4,5]])
+    print("El resultado es", (m5*2).getdata())
+
+
