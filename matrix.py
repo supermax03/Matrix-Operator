@@ -79,11 +79,14 @@ class Matrix:
             return False
         else:
             identity = True
-            for id in range(self.rows):
-                if (self.getdata()[id][id] != 1):
-                    identity = False
-                    break
+            for row_index in range(self.rows):
+                  for col_index in range(self.cols):
+                             _slot=self.getdata()[row_index][col_index]
+                             if ((row_index==col_index and _slot!=1) or (row_index!=col_index and _slot!=0)):
+                                         identity=False
+                                         break
             return identity
+
 
     def iszeromatrix(self):
         iszero = True
@@ -147,3 +150,5 @@ if __name__ == '__main__':
     m4 = Matrix([[3, 4, 5], [6, 7, 8]])
     print((m3 + m4).getdata())
     print((m4 - m3).getdata())
+    m1 = Matrix([[1,0,0], [0, 1, 0], [0, 0, 1]])
+    print(m1.isidentitymatrix())
