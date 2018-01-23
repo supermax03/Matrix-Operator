@@ -11,8 +11,10 @@ class Matrix:
         self.rows = len(self.matrix)
         self.cols = len(self.matrix[0])
         self._determinants = {1: lambda: self.getdata()[0][0], 2: self.getordertwo}
+
     def issimetric(self):
-                return self.getdata()==self.revert().getdata()
+        return self.getdata() == self.revert().getdata()
+
     def getdeterminant(self):
         return self._determinants[self.getOrder()[0]]()
 
@@ -35,9 +37,28 @@ class Matrix:
         finally:
             return Matrix(result)
 
+    def equal(self, other):
+        if (not isinstance(other, Matrix) or self.getOrder() != other.getOrder()):
+            return False
+        else:
+            isequal = True
+            for row_index in range(self.rows):
+                for col_index in range(self.cols):
+                    if (self.getdata()[row_index][col_index] != other.getdata()[row_index][col_index]):
+                        isequal = False
+                        break
+            return isequal
+
     def __eq__(self, other):
         return (isinstance(other, Matrix) and (self.getOrder() == other.getOrder()) and (
                 self.getdata() == other.getdata()))
+
+    def sum(self):
+        sum = 0
+        for row_index in range(self.rows):
+            for col_index in range(self.rows):
+                sum += self.getdata()[row_index][col_index]
+        return sum
 
     def getOrder(self):
         return (self.rows, self.cols)
@@ -92,10 +113,13 @@ class Matrix:
                         row.append(partial)
                     result.append(row)
         return Matrix(result)
-    def __add__(self,other):
-              return self.add(other)
+
+    def __add__(self, other):
+        return self.add(other)
+
     def __sub__(self, other):
-              return self.minus(other)
+        return self.minus(other)
+
     def add(self, othermatrix):
         return self.applyfunction(othermatrix, 'add')
 
@@ -117,9 +141,9 @@ if __name__ == '__main__':
     print(x.getdeterminant())
     g = Matrix([[3, 8], [4, 6]])
     print(g.getdeterminant())
-    m2 = Matrix([[1, 9, 3], [9, 2, -1],[3,-1,5]])
+    m2 = Matrix([[1, 9, 3], [9, 2, -1], [3, -1, 5]])
     print(m2.issimetric())
-    m3=Matrix([[1,2,3],[4,5,6]])
-    m4=Matrix([[3,4,5],[6,7,8]])
-    print((m3+m4).getdata())
-    print((m4-m3).getdata())
+    m3 = Matrix([[1, 2, 3], [4, 5, 6]])
+    m4 = Matrix([[3, 4, 5], [6, 7, 8]])
+    print((m3 + m4).getdata())
+    print((m4 - m3).getdata())
